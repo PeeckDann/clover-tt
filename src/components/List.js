@@ -6,6 +6,7 @@ import CustomCard from "./Card";
 import TaskAdder from "./TaskAdder";
 import { useDispatch, useSelector } from "react-redux";
 import * as boardActions from "../store/actions/board";
+import { Droppable } from "react-beautiful-dnd";
 
 const List = (props) => {
   const classes = useStyles();
@@ -38,18 +39,28 @@ const List = (props) => {
             </IconButton>
           </div>
         </div>
-        <div className={classes.cardContainer}>
-          {cards.map((card) => (
-            <CustomCard
-              key={card.id}
-              listId={props.id}
-              id={card.id}
-              title={card.title}
-              lastEdited={card.lastEdited}
-            />
-          ))}
-          <TaskAdder listId={props.id} />
-        </div>
+        <Droppable droppableId={props.id}>
+          {(provided) => (
+            <div
+              className={classes.cardContainer}
+              ref={provided.innerRef}
+              {...provided.droppableProps}
+            >
+              {cards.map((card, index) => (
+                <CustomCard
+                  key={card.id}
+                  listId={props.id}
+                  id={card.id}
+                  title={card.title}
+                  lastEdited={card.lastEdited}
+                  index={index}
+                />
+              ))}
+              {provided.placeholder}
+              <TaskAdder listId={props.id} />
+            </div>
+          )}
+        </Droppable>
       </Paper>
     </div>
   );

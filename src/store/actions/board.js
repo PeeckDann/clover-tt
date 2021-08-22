@@ -5,6 +5,7 @@ export const DELETE_LIST = "DELETE_LIST";
 
 export const ADD_CARD = "ADD_CARD";
 export const EDIT_CARD = "EDIT_CARD";
+export const DRAG_CARD = "DRAG_CARD";
 export const DELETE_CARD = "DELETE_CARD";
 
 export const CLEAR_BOARD = "CLEAR_BOARD";
@@ -52,6 +53,13 @@ export const editCard = (id, listId, title) => {
     id,
     listId,
     title,
+  };
+};
+
+export const dragCard = (result) => {
+  return {
+    type: DRAG_CARD,
+    result,
   };
 };
 

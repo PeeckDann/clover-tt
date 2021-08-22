@@ -3,13 +3,13 @@ import { makeStyles } from "@material-ui/core";
 import List from "../components/List";
 import { useSelector, useDispatch } from "react-redux";
 import * as dateActions from "../store/actions/date";
+import * as boardActions from "../store/actions/board";
 import TaskAdder from "../components/TaskAdder";
+import { DragDropContext } from "react-beautiful-dnd";
 
 const Board = () => {
   const classes = useStyles();
-
   const lists = useSelector((state) => state.board.lists);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -17,22 +17,27 @@ const Board = () => {
       () => dispatch(dateActions.setCurrentDate()),
       60000
     );
-
     return () => clearInterval(timer);
   });
 
+  const handleDragEnd = (result) => {
+    dispatch(boardActions.dragCard(result));
+  };
+
   return (
-    <div className={classes.container}>
-      {lists.map((list) => (
-        <List
-          key={list.id}
-          id={list.id}
-          title={list.title}
-          cards={list.cards}
-        />
-      ))}
-      <TaskAdder />
-    </div>
+    <DragDropContext onDragEnd={(result) => handleDragEnd(result)}>
+      <div className={classes.container}>
+        {lists.map((list) => (
+          <List
+            key={list.id}
+            id={list.id}
+            title={list.title}
+            cards={list.cards}
+          />
+        ))}
+        <TaskAdder />
+      </div>
+    </DragDropContext>
   );
 };
 

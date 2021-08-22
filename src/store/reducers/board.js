@@ -9,6 +9,7 @@ import {
   DELETE_CARD,
   EDIT_LIST,
   EDIT_CARD,
+  DRAG_CARD,
 } from "../actions/board";
 
 const initialState = {
@@ -19,7 +20,7 @@ const boardReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_LIST: {
       const updatedLists = [...state.lists];
-      const newList = new List(Math.random(), action.title);
+      const newList = new List(Math.random() + "l", action.title);
       updatedLists.push(newList);
       return { lists: updatedLists };
     }
@@ -53,7 +54,7 @@ const boardReducer = (state = initialState, action) => {
         (list) => list.id === action.listId
       );
       const newCard = new Card(
-        Math.random(),
+        Math.random() + "c",
         action.listId,
         action.title,
         new Date().getTime()
@@ -74,6 +75,30 @@ const boardReducer = (state = initialState, action) => {
         action.title;
       updatedLists[currentListIndex].cards[currentCardIndex].lastEdited =
         new Date().getTime();
+      return { lists: updatedLists };
+    }
+
+    case DRAG_CARD: {
+      const { source, destination, draggableId } = action.result;
+      if (!destination) {
+        return state;
+      }
+      const updatedLists = [...state.lists];
+      const sourceListIndex = updatedLists.findIndex(
+        (list) => list.id === source.droppableId
+      );
+      const destinationListIndex = updatedLists.findIndex(
+        (list) => list.id === destination.droppableId
+      );
+      const cardToDrop = updatedLists[sourceListIndex].cards.find(
+        (card) => card.id === draggableId
+      );
+      updatedLists[sourceListIndex].cards.splice(source.index, 1);
+      updatedLists[destinationListIndex].cards.splice(
+        destination.index,
+        0,
+        cardToDrop
+      );
       return { lists: updatedLists };
     }
 

@@ -17,6 +17,9 @@ const EditableTitle = (props) => {
       setTitle(props.title);
       setIsEdited(false);
       return;
+    } else if (title === props.title) {
+      setIsEdited(false);
+      return;
     }
     if (props.type === "card") {
       dispatch(boardActions.editCard(props.cardId, props.listId, title));

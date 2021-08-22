@@ -1,4 +1,4 @@
-import { ThemeProvider, CssBaseline, createTheme } from "@material-ui/core";
+import { ThemeProvider, createTheme } from "@material-ui/core";
 import { blue } from "@material-ui/core/colors";
 import Header from "./components/Header";
 import Board from "./pages/Board";
@@ -6,7 +6,6 @@ import Board from "./pages/Board";
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <CssBaseline />
       <Header />
       <Board />
     </ThemeProvider>

@@ -5,6 +5,7 @@ import EditableTitle from "./EditableTitle";
 import TimeStamp from "./TimeStamp";
 import { useDispatch } from "react-redux";
 import * as boardActions from "../store/actions/board";
+import { Draggable } from "react-beautiful-dnd";
 
 const CustomCard = (props) => {
   const classes = useStyles();
@@ -12,24 +13,33 @@ const CustomCard = (props) => {
   const dispatch = useDispatch();
 
   return (
-    <Paper className={classes.outerContainer}>
-      <div className={classes.container}>
-        <EditableTitle
-          cardId={props.id}
-          listId={props.listId}
-          title={props.title}
-          type="card"
-        />
-        <IconButton
-          onClick={() => {
-            dispatch(boardActions.deleteCard(props.id, props.listId));
-          }}
+    <Draggable draggableId={props.id} index={props.index}>
+      {(provided) => (
+        <Paper
+          className={classes.outerContainer}
+          ref={provided.innerRef}
+          {...provided.dragHandleProps}
+          {...provided.draggableProps}
         >
-          <Delete />
-        </IconButton>
-      </div>
-      <TimeStamp lastEdited={props.lastEdited} />
-    </Paper>
+          <div className={classes.container}>
+            <EditableTitle
+              cardId={props.id}
+              listId={props.listId}
+              title={props.title}
+              type="card"
+            />
+            <IconButton
+              onClick={() => {
+                dispatch(boardActions.deleteCard(props.id, props.listId));
+              }}
+            >
+              <Delete />
+            </IconButton>
+          </div>
+          <TimeStamp lastEdited={props.lastEdited} />
+        </Paper>
+      )}
+    </Draggable>
   );
 };
 

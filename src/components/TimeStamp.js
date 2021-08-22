@@ -12,10 +12,10 @@ const TimeStamp = ({ lastEdited }) => {
   useEffect(() => {
     const handleStampChange = (currentDate) => {
       const timeSinceEdit = (currentDate - parseInt(lastEdited)) / 1000;
-      if (!currentDate || timeSinceEdit < 0) {
-        setStamp("0 min ego");
+      if (!currentDate || timeSinceEdit < 0 || timeSinceEdit < 60) {
+        setStamp("just now");
       } else if (timeSinceEdit < 3600) {
-        setStamp(`${Math.ceil(timeSinceEdit / 60)} min ego`);
+        setStamp(`${Math.ceil(timeSinceEdit / 60)} m ego`);
       } else if (timeSinceEdit < 86400) {
         setStamp(`${Math.floor(timeSinceEdit / 3600)} h ego`);
       } else if (timeSinceEdit < 604800) {
