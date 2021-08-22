@@ -10,6 +10,7 @@ import {
   EDIT_LIST,
   EDIT_CARD,
   DRAG_CARD,
+  FETCH_BOARD,
 } from "../actions/board";
 
 const initialState = {
@@ -93,6 +94,10 @@ const boardReducer = (state = initialState, action) => {
       const cardToDrop = updatedLists[sourceListIndex].cards.find(
         (card) => card.id === draggableId
       );
+      if (source.droppableId !== destination.droppableId) {
+        updatedLists[sourceListIndex].cards[source.index].lastEdited =
+          new Date().getTime();
+      }
       updatedLists[sourceListIndex].cards.splice(source.index, 1);
       updatedLists[destinationListIndex].cards.splice(
         destination.index,
@@ -113,6 +118,9 @@ const boardReducer = (state = initialState, action) => {
       ].cards.filter((card) => card.id !== action.id);
       return { lists: updatedLists };
     }
+
+    case FETCH_BOARD:
+      return { lists: action.persistedState };
 
     case CLEAR_BOARD:
       return initialState;

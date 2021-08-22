@@ -4,9 +4,7 @@ import { useSelector } from "react-redux";
 
 const TimeStamp = ({ lastEdited }) => {
   const classes = useStyles();
-
   const [stamp, setStamp] = useState("");
-
   const currentDate = useSelector((state) => parseInt(state.date.date));
 
   useEffect(() => {
@@ -15,11 +13,11 @@ const TimeStamp = ({ lastEdited }) => {
       if (!currentDate || timeSinceEdit < 0 || timeSinceEdit < 60) {
         setStamp("just now");
       } else if (timeSinceEdit < 3600) {
-        setStamp(`${Math.ceil(timeSinceEdit / 60)} m ego`);
+        setStamp(`${Math.ceil(timeSinceEdit / 60)} m ago`);
       } else if (timeSinceEdit < 86400) {
-        setStamp(`${Math.floor(timeSinceEdit / 3600)} h ego`);
+        setStamp(`${Math.floor(timeSinceEdit / 3600)} h ago`);
       } else if (timeSinceEdit < 604800) {
-        setStamp(`${Math.floor(timeSinceEdit / 86400)} d ego`);
+        setStamp(`${Math.floor(timeSinceEdit / 86400)} d ago`);
       } else {
         setStamp("long time ago");
       }

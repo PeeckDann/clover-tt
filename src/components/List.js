@@ -75,7 +75,6 @@ const useStyles = makeStyles((theme) => {
     },
     container: {
       display: "flex",
-      flexShrink: 1,
       flexDirection: "column",
       alignItems: "center",
       backgroundColor: "#E8E8E8",
@@ -89,9 +88,9 @@ const useStyles = makeStyles((theme) => {
     },
     buttonContainer: {
       display: "flex",
-      justifyContent: "space-around",
+      justifyContent: "space-between",
       alignItems: "center",
-      margin: theme.spacing(1, 2, 1, 0),
+      margin: theme.spacing(1, 1, 1, 0),
     },
     cardContainer: {
       display: "flex",

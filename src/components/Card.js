@@ -1,15 +1,14 @@
 import React from "react";
 import { Paper, IconButton, makeStyles } from "@material-ui/core";
 import { Delete } from "@material-ui/icons";
+import { Draggable } from "react-beautiful-dnd";
 import EditableTitle from "./EditableTitle";
 import TimeStamp from "./TimeStamp";
 import { useDispatch } from "react-redux";
 import * as boardActions from "../store/actions/board";
-import { Draggable } from "react-beautiful-dnd";
 
 const CustomCard = (props) => {
   const classes = useStyles();
-
   const dispatch = useDispatch();
 
   return (

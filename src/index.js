@@ -3,9 +3,10 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { createStore, combineReducers } from "redux";
+import { createStore, combineReducers, applyMiddleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { Provider } from "react-redux";
+import ReduxThunk from "redux-thunk";
 import boardReducer from "./store/reducers/board";
 import dateReducer from "./store/reducers/date";
 
@@ -14,7 +15,10 @@ const rootReducer = combineReducers({
   date: dateReducer,
 });
 
-const store = createStore(rootReducer, composeWithDevTools());
+const store = createStore(
+  rootReducer,
+  composeWithDevTools(applyMiddleware(ReduxThunk))
+);
 
 ReactDOM.render(
   <Provider store={store}>

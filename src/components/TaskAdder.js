@@ -6,10 +6,8 @@ import * as boardActions from "../store/actions/board";
 
 const TaskAdder = (props) => {
   const classes = useStyles();
-
   const [isAdding, setIsAdding] = useState(false);
   const [title, setTitle] = useState("New task!");
-
   const dispatch = useDispatch();
 
   const handleCreation = () => {
@@ -86,7 +84,7 @@ const useStyles = makeStyles((theme) => {
     },
     textField: {
       flex: 1,
-      margin: theme.spacing(1, 4),
+      margin: theme.spacing(1, 2),
     },
     input: {
       fontSize: "20px",

@@ -5,10 +5,8 @@ import * as boardActions from "../store/actions/board";
 
 const EditableTitle = (props) => {
   const classes = useStyles();
-
   const [isEdited, setIsEdited] = useState(false);
   const [title, setTitle] = useState(props.title);
-
   const dispatch = useDispatch();
 
   const handleEditing = () => {

@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core";
+import { DragDropContext } from "react-beautiful-dnd";
 import List from "../components/List";
+import TaskAdder from "../components/TaskAdder";
 import { useSelector, useDispatch } from "react-redux";
 import * as dateActions from "../store/actions/date";
 import * as boardActions from "../store/actions/board";
-import TaskAdder from "../components/TaskAdder";
-import { DragDropContext } from "react-beautiful-dnd";
 
 const Board = () => {
   const classes = useStyles();
@@ -19,6 +19,11 @@ const Board = () => {
     );
     return () => clearInterval(timer);
   });
+
+  useEffect(() => {
+    dispatch(boardActions.fetchBoard());
+    dispatch(dateActions.setCurrentDate());
+  }, [dispatch]);
 
   const handleDragEnd = (result) => {
     dispatch(boardActions.dragCard(result));
